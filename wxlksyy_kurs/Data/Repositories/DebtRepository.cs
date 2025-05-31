@@ -38,17 +38,32 @@ namespace wxlksyy_kurs.Data.Repositories
             return debts;
         }
 
-        public void Add(Debt debt)
+        public int Add(Debt debt)
         {
-            var query = "INSERT INTO Debts (student_id, subject_id, debt_description) VALUES (@studentId, @subjectId, @description)";
+            // 1. Получаем максимальный существующий ID
+            int maxId = Convert.ToInt32(_databaseHelper.ExecuteScalar(
+                "SELECT ISNULL(MAX(debt_id), 0) FROM Debts"));
+
+            // 2. Вычисляем новый ID
+            int newId = maxId + 1;
+
+            // 3. Выполняем вставку с явным указанием ID
+            var query = @"INSERT INTO Debts 
+                        (debt_id, student_id, subject_id, debt_description) 
+                        VALUES (@id, @studentId, @subjectId, @description)";
+
             var parameters = new[]
             {
+                new SqlParameter("@id", newId),
                 new SqlParameter("@studentId", debt.StudentId),
                 new SqlParameter("@subjectId", debt.SubjectId),
-                new SqlParameter("@description", debt.Description)
+                new SqlParameter("@description", debt.Description ?? string.Empty)
             };
 
             _databaseHelper.ExecuteNonQuery(query, parameters);
+
+            // 4. Возвращаем новый ID
+            return newId;
         }
 
         public void Delete(int id)

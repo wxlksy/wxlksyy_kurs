@@ -30,9 +30,14 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dgvStudents = new System.Windows.Forms.DataGridView();
+            this.studentidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fullnameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupnameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.studentnumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.studentsBindingSource3 = new System.Windows.Forms.BindingSource(this.components);
+            this.wxlksyy_bdDataSet = new wxlksyy_kurs.wxlksyy_bdDataSet();
             this.studentsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.wxlksyybdDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.wxlksyy_bdDataSet = new wxlksyy_kurs.wxlksyy_bdDataSet();
             this.txtFullName = new System.Windows.Forms.TextBox();
             this.txtGroup = new System.Windows.Forms.TextBox();
             this.txtNumber = new System.Windows.Forms.TextBox();
@@ -47,21 +52,65 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.studentsTableAdapter = new wxlksyy_kurs.wxlksyy_bdDataSetTableAdapters.StudentsTableAdapter();
             this.studentsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.studentsBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgvStudents)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.studentsBindingSource3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.wxlksyy_bdDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.studentsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.wxlksyybdDataSetBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.wxlksyy_bdDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.studentsBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.studentsBindingSource2)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvStudents
             // 
+            this.dgvStudents.AutoGenerateColumns = false;
             this.dgvStudents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvStudents.Location = new System.Drawing.Point(180, 43);
+            this.dgvStudents.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.studentidDataGridViewTextBoxColumn,
+            this.fullnameDataGridViewTextBoxColumn,
+            this.groupnameDataGridViewTextBoxColumn,
+            this.studentnumberDataGridViewTextBoxColumn});
+            this.dgvStudents.DataSource = this.studentsBindingSource3;
+            this.dgvStudents.Location = new System.Drawing.Point(184, 12);
             this.dgvStudents.Name = "dgvStudents";
-            this.dgvStudents.Size = new System.Drawing.Size(542, 168);
+            this.dgvStudents.Size = new System.Drawing.Size(538, 202);
             this.dgvStudents.TabIndex = 0;
+            // 
+            // studentidDataGridViewTextBoxColumn
+            // 
+            this.studentidDataGridViewTextBoxColumn.DataPropertyName = "student_id";
+            this.studentidDataGridViewTextBoxColumn.HeaderText = "student_id";
+            this.studentidDataGridViewTextBoxColumn.Name = "studentidDataGridViewTextBoxColumn";
+            // 
+            // fullnameDataGridViewTextBoxColumn
+            // 
+            this.fullnameDataGridViewTextBoxColumn.DataPropertyName = "full_name";
+            this.fullnameDataGridViewTextBoxColumn.HeaderText = "full_name";
+            this.fullnameDataGridViewTextBoxColumn.Name = "fullnameDataGridViewTextBoxColumn";
+            // 
+            // groupnameDataGridViewTextBoxColumn
+            // 
+            this.groupnameDataGridViewTextBoxColumn.DataPropertyName = "group_name";
+            this.groupnameDataGridViewTextBoxColumn.HeaderText = "group_name";
+            this.groupnameDataGridViewTextBoxColumn.Name = "groupnameDataGridViewTextBoxColumn";
+            // 
+            // studentnumberDataGridViewTextBoxColumn
+            // 
+            this.studentnumberDataGridViewTextBoxColumn.DataPropertyName = "student_number";
+            this.studentnumberDataGridViewTextBoxColumn.HeaderText = "student_number";
+            this.studentnumberDataGridViewTextBoxColumn.Name = "studentnumberDataGridViewTextBoxColumn";
+            // 
+            // studentsBindingSource3
+            // 
+            this.studentsBindingSource3.DataMember = "Students";
+            this.studentsBindingSource3.DataSource = this.wxlksyy_bdDataSet;
+            // 
+            // wxlksyy_bdDataSet
+            // 
+            this.wxlksyy_bdDataSet.DataSetName = "wxlksyy_bdDataSet";
+            this.wxlksyy_bdDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // studentsBindingSource
             // 
@@ -72,11 +121,6 @@
             // 
             this.wxlksyybdDataSetBindingSource.DataSource = this.wxlksyy_bdDataSet;
             this.wxlksyybdDataSetBindingSource.Position = 0;
-            // 
-            // wxlksyy_bdDataSet
-            // 
-            this.wxlksyy_bdDataSet.DataSetName = "wxlksyy_bdDataSet";
-            this.wxlksyy_bdDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // txtFullName
             // 
@@ -201,6 +245,11 @@
             this.studentsBindingSource1.DataMember = "Students";
             this.studentsBindingSource1.DataSource = this.wxlksyybdDataSetBindingSource;
             // 
+            // studentsBindingSource2
+            // 
+            this.studentsBindingSource2.DataMember = "Students";
+            this.studentsBindingSource2.DataSource = this.wxlksyybdDataSetBindingSource;
+            // 
             // StudentsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -224,11 +273,13 @@
             this.Text = "StudentsForm";
             this.Load += new System.EventHandler(this.StudentsForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvStudents)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.studentsBindingSource3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.wxlksyy_bdDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.studentsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.wxlksyybdDataSetBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.wxlksyy_bdDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.studentsBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.studentsBindingSource2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -254,5 +305,11 @@
         private System.Windows.Forms.BindingSource studentsBindingSource;
         private wxlksyy_bdDataSetTableAdapters.StudentsTableAdapter studentsTableAdapter;
         private System.Windows.Forms.BindingSource studentsBindingSource1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn studentidDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fullnameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn groupnameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn studentnumberDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource studentsBindingSource2;
+        private System.Windows.Forms.BindingSource studentsBindingSource3;
     }
 }

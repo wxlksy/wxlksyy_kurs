@@ -6,9 +6,6 @@ using wxlksyy_kurs.Data.Models;
 
 namespace wxlksyy_kurs.Data.Repositories
 {
-    /// <summary>
-    /// Репозиторий для работы со студентами
-    /// </summary>
     public class StudentRepository
     {
         private readonly DatabaseHelper _databaseHelper;
@@ -38,28 +35,48 @@ namespace wxlksyy_kurs.Data.Repositories
             return students;
         }
 
-        public void Add(Student student)
+        public int Add(Student student)
         {
-            var query = "INSERT INTO Students (full_name, group_name, student_number) VALUES (@fullName, @groupName, @studentNumber)";
+            // 1. Получаем максимальный существующий ID
+            int maxId = Convert.ToInt32(_databaseHelper.ExecuteScalar(
+                "SELECT ISNULL(MAX(student_id), 0) FROM Students"));
+
+            // 2. Вычисляем новый ID
+            int newId = maxId + 1;
+
+            // 3. Выполняем вставку с явным указанием ID
+            var query = @"INSERT INTO Students 
+                        (student_id, full_name, group_name, student_number) 
+                        VALUES (@id, @fullName, @groupName, @studentNumber)";
+
             var parameters = new[]
             {
-                new SqlParameter("@fullName", student.FullName),
-                new SqlParameter("@groupName", student.GroupName),
-                new SqlParameter("@studentNumber", student.StudentNumber)
+                new SqlParameter("@id", newId),
+                new SqlParameter("@fullName", student.FullName ?? string.Empty),
+                new SqlParameter("@groupName", student.GroupName ?? string.Empty),
+                new SqlParameter("@studentNumber", student.StudentNumber ?? string.Empty)
             };
 
             _databaseHelper.ExecuteNonQuery(query, parameters);
+
+            // 4. Возвращаем новый ID
+            return newId;
         }
 
         public void Update(Student student)
         {
-            var query = "UPDATE Students SET full_name = @fullName, group_name = @groupName, student_number = @studentNumber WHERE student_id = @id";
+            var query = @"UPDATE Students 
+                        SET full_name = @fullName, 
+                            group_name = @groupName, 
+                            student_number = @studentNumber
+                        WHERE student_id = @id";
+
             var parameters = new[]
             {
                 new SqlParameter("@id", student.Id),
-                new SqlParameter("@fullName", student.FullName),
-                new SqlParameter("@groupName", student.GroupName),
-                new SqlParameter("@studentNumber", student.StudentNumber)
+                new SqlParameter("@fullName", student.FullName ?? string.Empty),
+                new SqlParameter("@groupName", student.GroupName ?? string.Empty),
+                new SqlParameter("@studentNumber", student.StudentNumber ?? string.Empty)
             };
 
             _databaseHelper.ExecuteNonQuery(query, parameters);
